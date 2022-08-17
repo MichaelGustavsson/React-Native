@@ -7,6 +7,7 @@ import {
   TextInput,
   Button,
   ScrollView,
+  FlatList,
 } from 'react-native';
 
 export default function App() {
@@ -20,7 +21,7 @@ export default function App() {
   function onAddTodoHandler() {
     setTodoItems((currentTodoItems) => [
       ...currentTodoItems,
-      { text: todoText, key: uuid.v4() },
+      { text: todoText, id: uuid.v4() },
     ]);
   }
 
@@ -35,13 +36,19 @@ export default function App() {
         <Button title='Lägg till' onPress={onAddTodoHandler} />
       </View>
       <View style={styles.todoListContainer}>
-        <ScrollView>
-          {todoItems.map((todoItem) => (
-            <Text key={todoItem.key} style={styles.todoItemContainer}>
-              {todoItem.text}
-            </Text>
-          ))}
-        </ScrollView>
+        <FlatList
+          data={todoItems}
+          renderItem={(todoItem) => {
+            return (
+              <View style={styles.todoItemContainer}>
+                <Text style={styles.todoItemText}>{todoItem.item.text}</Text>
+              </View>
+            );
+          }}
+          keyExtractor={(item, index) => {
+            return item.id;
+          }}
+        />
       </View>
     </View>
   );
@@ -75,9 +82,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   todoItemContainer: {
-    backgroundColor: '#333333',
-    color: '#ffffff',
+    backgroundColor: '#ef8615',
     padding: 8,
+    paddingLeft: 16,
     marginTop: 16,
+    borderRadius: 20,
+  },
+  todoItemText: {
+    color: '#ffffff',
   },
 });
