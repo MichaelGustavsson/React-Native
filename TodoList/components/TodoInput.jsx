@@ -10,6 +10,7 @@ const TodoInput = (props) => {
 
   function addTodoItemHandler() {
     props.onAddTodo(todoText);
+    setTodoText('');
   }
 
   return (
@@ -17,6 +18,7 @@ const TodoInput = (props) => {
       <TextInput
         style={styles.textInput}
         onChangeText={onTextChangedHandler}
+        value={todoText}
         placeholder='Lägg till att göra'
       />
       <Button title='Lägg till' onPress={addTodoItemHandler} />
