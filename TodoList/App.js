@@ -1,20 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>This is my ToDo App</Text>
-      <StatusBar style='auto' />
+    <View style={styles.appContainer}>
+      <TextInput style={styles.textInput} placeholder='Lägg till att göra' />
+      <Button title='Lägg till' />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 50,
+    backgroundColor: '#f4f4f4',
+  },
+  textInput: {
+    borderWidth: 1,
+    borderColor: '#333',
+    padding: 4,
+    paddingLeft: 8,
+    marginBottom: 8,
   },
 });
