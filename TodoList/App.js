@@ -19,7 +19,9 @@ export default function App() {
   }
 
   function onDeleteTodoItemHandler(todoId) {
-    console.log(todoId);
+    setTodoItems((currentTodoItems) => {
+      return currentTodoItems.filter((item) => item.id !== todoId);
+    });
   }
   /*********************************************/
 
