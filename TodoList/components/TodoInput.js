@@ -30,15 +30,15 @@ export default TodoInput;
 
 const styles = StyleSheet.create({
   textInput: {
-    flex: 1,
     borderWidth: 1,
     borderColor: '#333333',
     padding: 4,
     paddingLeft: 8,
-    marginBottom: 8,
+    width: '70%',
     marginRight: 8,
   },
   inputContainer: {
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',

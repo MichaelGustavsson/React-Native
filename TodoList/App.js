@@ -1,6 +1,6 @@
 import uuid from 'react-native-uuid';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 
 import TodoInput from './components/TodoInput';
 import TodoList from './components/TodoList';
@@ -28,6 +28,12 @@ export default function App() {
   //JSX...
   return (
     <View style={styles.appContainer}>
+      <View style={styles.imageContainer}>
+        <Image
+          style={styles.image}
+          source={require('./assets/images/checklist.jpg')}
+        />
+      </View>
       <TodoInput onAddTodo={onAddTodoHandler} />
       <TodoList
         todoItems={todoItems}
@@ -41,6 +47,15 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
     padding: 50,
-    backgroundColor: '#f4f4f4',
+    backgroundColor: '#666565',
+  },
+  imageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 150,
+    height: 100,
+    borderRadius: 10,
   },
 });

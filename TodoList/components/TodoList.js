@@ -27,6 +27,7 @@ export default TodoList;
 
 const styles = StyleSheet.create({
   todoListContainer: {
+    flex: 6,
     borderTopColor: '#333333',
     borderTopWidth: 1,
     marginTop: 16,
