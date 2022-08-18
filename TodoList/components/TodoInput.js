@@ -31,7 +31,9 @@ export default TodoInput;
 const styles = StyleSheet.create({
   textInput: {
     borderWidth: 1,
-    borderColor: '#333333',
+    borderColor: '#f4f4f4',
+    color: '#ffffff',
+    borderRadius: 5,
     padding: 4,
     paddingLeft: 8,
     width: '70%',
