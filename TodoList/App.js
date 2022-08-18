@@ -1,13 +1,16 @@
 import uuid from 'react-native-uuid';
 import { useState } from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import TodoItem from './components/TodoItem';
 import TodoInput from './components/TodoInput';
+import TodoList from './components/TodoList';
 
 export default function App() {
+  /****************** JAVASCRIPT ****************/
+  // State management...
   const [todoItems, setTodoItems] = useState([]);
 
+  // Event handlers...
   function onAddTodoHandler(todoText) {
     setTodoItems((currentTodoItems) => [
       ...currentTodoItems,
@@ -15,20 +18,19 @@ export default function App() {
     ]);
   }
 
+  function onDeleteTodoItemHandler(todoId) {
+    console.log(todoId);
+  }
+  /*********************************************/
+
+  //JSX...
   return (
     <View style={styles.appContainer}>
       <TodoInput onAddTodo={onAddTodoHandler} />
-      <View style={styles.todoListContainer}>
-        <FlatList
-          data={todoItems}
-          renderItem={(todoItem) => {
-            return <TodoItem text={todoItem.item.text} />;
-          }}
-          keyExtractor={(item, index) => {
-            return item.id;
-          }}
-        />
-      </View>
+      <TodoList
+        todoItems={todoItems}
+        onDeleteTodoItem={onDeleteTodoItemHandler}
+      />
     </View>
   );
 }
@@ -38,11 +40,5 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 50,
     backgroundColor: '#f4f4f4',
-  },
-  todoListContainer: {
-    borderTopColor: '#333333',
-    borderTopWidth: 1,
-    marginTop: 16,
-    paddingTop: 24,
   },
 });
