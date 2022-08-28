@@ -8,7 +8,6 @@ import AppHeader from '../components/ui/AppHeader';
 const Welcome = () => {
   return (
     <View style={styles.screen}>
-      {/* <Text style={styles.text}>MovieFlix</Text> */}
       <AppHeader>MovieFlix</AppHeader>
       <Title>Vad vill du se på idag?</Title>
       <View style={styles.buttonsContainer}>
