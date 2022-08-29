@@ -2,18 +2,13 @@ import { FlatList, View, StyleSheet } from 'react-native';
 import CategoryItem from '../components/CategoryItem';
 import AppHeader from '../components/ui/AppHeader';
 
-import { CATEGORIES } from '../data/CategoriesData';
+import { DOCUMENTARY_CATEGORIES } from '../data/CategoriesData';
 import Colors from '../utilities/constants/colors';
 import ScreenTemplate from './ScreenTemplate';
 
-const MovieCategoriesScreen = ({ navigation }) => {
+const DocumentaryCategoryScreen = () => {
   const renderCategoryItem = (category) => {
-    const onCategorySelectedHandler = () => {
-      navigation.navigate('Sammanfattning', { category: category.item });
-    };
-    return (
-      <CategoryItem item={category.item} onPress={onCategorySelectedHandler} />
-    );
+    return <CategoryItem item={category.item} />;
   };
 
   return (
@@ -21,7 +16,7 @@ const MovieCategoriesScreen = ({ navigation }) => {
       <View style={styles.screen}>
         <AppHeader>MovieFlix</AppHeader>
         <FlatList
-          data={CATEGORIES}
+          data={DOCUMENTARY_CATEGORIES}
           keyExtractor={(item) => item.id}
           numColumns={3}
           renderItem={renderCategoryItem}
@@ -31,7 +26,7 @@ const MovieCategoriesScreen = ({ navigation }) => {
   );
 };
 
-export default MovieCategoriesScreen;
+export default DocumentaryCategoryScreen;
 
 const styles = StyleSheet.create({
   screen: {

@@ -7,3 +7,14 @@ export const CATEGORIES = [
   new Category(4, 'Skräck', require('../assets/images/horror.jpg')),
   new Category(5, 'Drama', require('../assets/images/drama.jpg')),
 ];
+
+export const SPORTS_CATEGORIES = [
+  new Category(6, 'Golf', require('../assets/images/no-image.png')),
+  new Category(7, 'Hockey', require('../assets/images/no-image.png')),
+  new Category(8, 'Fotboll', require('../assets/images/no-image.png')),
+  new Category(9, 'Friidrott', require('../assets/images/no-image.png')),
+];
+
+export const DOCUMENTARY_CATEGORIES = [
+  new Category(10, 'Populära', require('../assets/images/no-image.png')),
+];

@@ -6,14 +6,9 @@ import { CATEGORIES } from '../data/CategoriesData';
 import Colors from '../utilities/constants/colors';
 import ScreenTemplate from './ScreenTemplate';
 
-const MovieCategoriesScreen = ({ navigation }) => {
+const SeriesCategoryScreen = () => {
   const renderCategoryItem = (category) => {
-    const onCategorySelectedHandler = () => {
-      navigation.navigate('Sammanfattning', { category: category.item });
-    };
-    return (
-      <CategoryItem item={category.item} onPress={onCategorySelectedHandler} />
-    );
+    return <CategoryItem item={category.item} />;
   };
 
   return (
@@ -31,7 +26,7 @@ const MovieCategoriesScreen = ({ navigation }) => {
   );
 };
 
-export default MovieCategoriesScreen;
+export default SeriesCategoryScreen;
 
 const styles = StyleSheet.create({
   screen: {

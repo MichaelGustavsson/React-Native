@@ -1,10 +1,10 @@
 import { View, Text, Image, StyleSheet, Pressable } from 'react-native';
 import Colors from '../utilities/constants/colors';
 
-const CategoryItem = ({ item }) => {
+const CategoryItem = ({ item, onPress }) => {
   return (
     <View style={styles.grid}>
-      <Pressable>
+      <Pressable onPress={onPress}>
         <View style={styles.categoryContainer}>
           <Image style={styles.image} source={item.image} />
           <Text style={styles.categoryTitle}>{item.title}</Text>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryTitle: {
-    color: Colors.lightText,
+    color: Colors.primaryText,
     fontSize: 18,
     marginVertical: 8,
   },

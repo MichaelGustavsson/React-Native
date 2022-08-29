@@ -2,37 +2,51 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import Colors from '../utilities/constants/colors';
 import MainButton from '../components/ui/MainButton';
 import AppHeader from '../components/ui/AppHeader';
+import ScreenTemplate from './ScreenTemplate';
 
 const MainScreen = ({ navigation }) => {
   const onMoviePressHandler = () => {
     navigation.navigate('Filmer');
   };
+  const onSeriesPressHandler = () => {
+    navigation.navigate('Serier');
+  };
+  const onSportPressHandler = () => {
+    navigation.navigate('Sport');
+  };
+  const onDocumentaryPressHandler = () => {
+    navigation.navigate('Dokumentärer');
+  };
 
   return (
-    <View style={styles.screen}>
-      <AppHeader>MovieFlix</AppHeader>
-      <View>
-        <Text style={styles.titleText}>Vad vill du se på idag?</Text>
+    <ScreenTemplate>
+      <View style={styles.screen}>
+        <AppHeader>MovieFlix</AppHeader>
+        <View>
+          <Text style={styles.titleText}>Vad vill du se på idag?</Text>
+        </View>
+        <View style={styles.buttonsContainer}>
+          <MainButton onPressed={onSeriesPressHandler}>Serier</MainButton>
+          <MainButton onPressed={onMoviePressHandler}>Filmer</MainButton>
+        </View>
+        <View style={styles.buttonsContainer}>
+          <MainButton onPressed={onDocumentaryPressHandler}>
+            Dokumentärer
+          </MainButton>
+          <MainButton onPressed={onSportPressHandler}>Sport</MainButton>
+        </View>
+        <View>
+          <Text style={styles.titleText}>Vi rekommenderar</Text>
+        </View>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require('../assets/images/The_Batman.jpg')}
+            resizeMode='cover'
+            style={styles.image}
+          />
+        </View>
       </View>
-      <View style={styles.buttonsContainer}>
-        <MainButton>Serier</MainButton>
-        <MainButton onPressed={onMoviePressHandler}>Filmer</MainButton>
-      </View>
-      <View style={styles.buttonsContainer}>
-        <MainButton>Dokumentärer</MainButton>
-        <MainButton>Sport</MainButton>
-      </View>
-      <View>
-        <Text style={styles.titleText}>Vi rekommenderar</Text>
-      </View>
-      <View style={styles.imageContainer}>
-        <Image
-          source={require('../assets/images/The_Batman.jpg')}
-          resizeMode='cover'
-          style={styles.image}
-        />
-      </View>
-    </View>
+    </ScreenTemplate>
   );
 };
 
