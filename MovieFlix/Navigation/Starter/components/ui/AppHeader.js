@@ -1,10 +1,9 @@
-import { Text, StyleSheet, View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
 import Colors from '../../utilities/constants/colors';
-
 const AppHeader = ({ children }) => {
   return (
-    <View style={styles.titleContainer}>
+    <View style={styles.headerContainer}>
       <Text style={styles.headerText}>{children}</Text>
     </View>
   );
@@ -13,14 +12,12 @@ const AppHeader = ({ children }) => {
 export default AppHeader;
 
 const styles = StyleSheet.create({
-  titleContainer: {
+  headerContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
     marginTop: 10,
   },
   headerText: {
-    color: Colors.primary,
+    color: Colors.primaryText,
     fontSize: 30,
     fontWeight: 'bold',
     marginHorizontal: 12,

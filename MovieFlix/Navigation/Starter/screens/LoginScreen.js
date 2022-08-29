@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
+
 import Colors from '../utilities/constants/colors';
+
 import MainButton from '../components/ui/MainButton';
 import AppHeader from '../components/ui/AppHeader';
 
-const LoginScreen = ({ onLogIn }) => {
+const LoginScreen = ({ onLogin }) => {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,111 +18,101 @@ const LoginScreen = ({ onLogIn }) => {
     setPassword(value);
   };
 
-  const onResetLogin = () => {
+  const onResetLoginHandler = () => {
     setUserName('');
-    setPassword('');
   };
 
   const onLoginHandler = () => {
     if (userName.trim().length === 0 || password.trim().length === 0) {
       Alert.alert(
         'Problem med inloggning',
-        'Mejl adress och lösenord måste anges',
-        [{ text: 'OK', style: 'cancel', onPress: onResetLogin }]
+        'Användarnamn och lösenord måste anges!',
+        [{ text: 'OK', style: 'default', onPress: onResetLoginHandler }]
       );
-
       return;
     }
-    // console.log(userName, password);
-    onLogIn(true);
+    onLogin(true);
   };
 
-  const onRegisterUserHandler = () => {
-    Alert.alert('Registrera konto', 'Välkommen till MovieFlix', [
-      { text: 'Klart', style: 'default' },
-    ]);
+  const onRegisterHandler = () => {
+    console.log('Duttat på registrera');
   };
 
   return (
-    <>
-      {/* <Text style={styles.text}>MovieFlix</Text> */}
+    <View style={styles.screen}>
       <AppHeader>MovieFlix</AppHeader>
+      <View>
+        <Text style={styles.titleText}>Vänligen logga in</Text>
+      </View>
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.userNameInput}
           placeholder='E-Post'
+          placeholderTextColor={'#cecccc'}
           keyboardType='email-address'
-          placeholderTextColor={Colors.light}
           autoCapitalize='none'
           autoCorrect={false}
           value={userName}
           onChangeText={onChangeUserNameHandler}
         />
         <TextInput
-          style={styles.passwordInput}
+          style={styles.userNameInput}
           placeholder='Lösenord'
+          placeholderTextColor={'#cecccc'}
           keyboardType='default'
-          placeholderTextColor={Colors.light}
           secureTextEntry={true}
           value={password}
           onChangeText={onChangePasswordHandler}
         />
         <View style={styles.buttonsContainer}>
-          <View style={styles.buttonContainer}>
-            <MainButton onPress={onLoginHandler}>Logga In</MainButton>
-          </View>
-          <View style={styles.buttonContainer}>
-            <MainButton onPress={onRegisterUserHandler}>Registrera</MainButton>
-          </View>
+          <MainButton onPressed={onLoginHandler}>Logga In</MainButton>
+          <MainButton onPressed={onRegisterHandler}>Registrera</MainButton>
         </View>
       </View>
-    </>
+    </View>
   );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  text: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    color: Colors.primary,
-    fontSize: 24,
+  screen: {
+    flex: 1,
   },
   inputContainer: {
     padding: 16,
     marginTop: 100,
     marginHorizontal: 24,
-    backgroundColor: Colors.secondaryBackground,
+    backgroundColor: '#611313',
     borderRadius: 10,
-    elevation: 8,
+    elevation: 10,
     shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: { width: 0, height: 3 },
     shadowRadius: 6,
     shadowOpacity: 0.9,
   },
   userNameInput: {
     height: 28,
     fontSize: 16,
-    borderBottomColor: Colors.secondary,
+    borderBottomColor: '#ddb52f',
     borderBottomWidth: 1,
-    marginVertical: 6,
     paddingVertical: 4,
-    color: Colors.secondary,
-  },
-  passwordInput: {
-    height: 28,
-    fontSize: 16,
-    borderBottomColor: Colors.secondary,
-    borderBottomWidth: 1,
     marginVertical: 6,
-    paddingVertical: 6,
-    color: Colors.secondary,
+    color: '#ddb52f',
   },
   buttonsContainer: {
     flexDirection: 'row',
   },
-  buttonContainer: {
-    flex: 1,
+  titleText: {
+    color: Colors.lightText,
+    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: 'bold',
+    borderWidth: 2,
+    borderColor: Colors.lightText,
+    padding: 12,
+    marginHorizontal: 20,
+    marginVertical: 30,
+    borderRadius: 5,
   },
 });

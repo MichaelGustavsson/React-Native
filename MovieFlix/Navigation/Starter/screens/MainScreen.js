@@ -1,62 +1,58 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
-
-import MainButton from '../components/ui/MainButton';
 import Colors from '../utilities/constants/colors';
-import Title from '../components/ui/Title';
+import MainButton from '../components/ui/MainButton';
 import AppHeader from '../components/ui/AppHeader';
 
-const Welcome = () => {
+const MainScreen = () => {
   return (
     <View style={styles.screen}>
-      {/* <Text style={styles.text}>MovieFlix</Text> */}
       <AppHeader>MovieFlix</AppHeader>
-      <Title>Vad vill du se på idag?</Title>
-      <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <MainButton>Serier</MainButton>
-        </View>
-        <View style={styles.buttonContainer}>
-          <MainButton>Filmer</MainButton>
-        </View>
+      <View>
+        <Text style={styles.titleText}>Vad vill du se på idag?</Text>
       </View>
       <View style={styles.buttonsContainer}>
-        <View style={styles.buttonContainer}>
-          <MainButton>Dokumentärer</MainButton>
-        </View>
-        <View style={styles.buttonContainer}>
-          <MainButton>Sport</MainButton>
-        </View>
+        <MainButton>Serier</MainButton>
+        <MainButton>Filmer</MainButton>
       </View>
-      <Title>Vi rekommenderar</Title>
+      <View style={styles.buttonsContainer}>
+        <MainButton>Dokumentärer</MainButton>
+        <MainButton>Sport</MainButton>
+      </View>
+      <View>
+        <Text style={styles.titleText}>Vi rekommenderar</Text>
+      </View>
       <View style={styles.imageContainer}>
         <Image
           source={require('../assets/images/The_Batman.jpg')}
-          style={styles.image}
           resizeMode='cover'
+          style={styles.image}
         />
       </View>
     </View>
   );
 };
 
-export default Welcome;
+export default MainScreen;
 
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
-  text: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    color: Colors.primary,
-    fontSize: 24,
+  titleText: {
+    color: Colors.lightText,
+    textAlign: 'center',
+    fontSize: 28,
+    fontWeight: 'bold',
+    borderWidth: 2,
+    borderColor: Colors.lightText,
+    padding: 12,
+    marginHorizontal: 20,
+    marginVertical: 30,
+    borderRadius: 5,
   },
   buttonsContainer: {
     flexDirection: 'row',
     marginHorizontal: 20,
-  },
-  buttonContainer: {
-    flex: 1,
   },
   imageContainer: {
     alignItems: 'center',
@@ -66,8 +62,8 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     borderRadius: 10,
-    opacity: 0.6,
     borderWidth: 2,
-    borderColor: Colors.primary,
+    borderColor: Colors.primaryText,
+    opacity: 0.6,
   },
 });
