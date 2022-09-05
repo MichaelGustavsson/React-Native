@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     borderRadius: Platform.select({ ios: 30, android: 0 }),
   },
   buttonText: {
-    color: Platform.select({ ios: '#ffffff', android: '#212121' }),
+    color: Platform.select({ ios: '#ffffff', android: '#C5CAE9' }),
     paddingVertical: 8,
     textAlign: 'center',
     fontWeight: 'bold',
