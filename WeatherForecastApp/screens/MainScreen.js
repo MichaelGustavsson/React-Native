@@ -8,9 +8,18 @@ import {
   ImageBackground,
   Pressable,
   useWindowDimensions,
+  Alert,
 } from 'react-native';
 
-import { getWeather, addAsFavourite } from '../utilities/http';
+import * as Location from 'expo-location';
+
+import {
+  getWeather,
+  addAsFavourite,
+  getWeatherByCity,
+} from '../utilities/http';
+
+import Spinner from '../components/ui/Spinner';
 
 const MainScreen = () => {
   const [temp, setTemp] = useState('');
@@ -22,34 +31,63 @@ const MainScreen = () => {
   const [currentTemp, setCurrentTemp] = useState('');
   const [foundCity, setFoundCity] = useState('');
 
-  useEffect(() => {
-    async function getCurrentWeather() {
-      const weatherData = await getWeather(currentCity);
-      setCurrentTemp(Math.ceil(weatherData.main.temp));
-      setSky(weatherData.weather[0].description);
-      setHighTemp(Math.ceil(weatherData.main.temp_max));
-      setLowTemp(Math.ceil(weatherData.main.temp_min));
-    }
+  const [isLoading, setIsLoading] = useState(true);
+  const [location, setLocation] = useState(null);
+  const [searchedLocation, setSearchedLocation] = useState(null);
 
-    getCurrentWeather();
+  useEffect(() => {
+    (async () => {
+      // För att få tillgång eller inte till gps enhet...
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+        // Hämta latitud och longitud för enhetens posision...
+        let location = await Location.getCurrentPositionAsync();
+        const currentLocation = await getWeather(
+          location.coords.latitude,
+          location.coords.longitude
+        );
+        setLocation(currentLocation);
+      }
+
+      setIsLoading(false);
+    })();
   }, []);
 
   const { styles } = weatherStyles();
 
   const onSearchHandler = async () => {
-    const weatherData = await getWeather(city);
-    setTemp(Math.ceil(weatherData.main.temp));
-    setFoundCity(weatherData.name);
+    try {
+      const location = await getWeatherByCity(city);
+
+      if (!location) {
+        Alert.alert(
+          'Hittar inte',
+          `Kan inte hitta någon stad med namnet ${city}`
+        );
+        return;
+      }
+      setSearchedLocation(location);
+    } catch (error) {
+      Alert.alert(
+        'Hittar inte',
+        `Kan inte hitta någon stad med namnet ${city}`
+      );
+    }
   };
 
   const onSaveAsFavourite = async () => {
     const weatherData = {
       city,
-      temp,
+      latitude: searchedLocation.coord.lat,
+      longitude: searchedLocation.coord.lon,
     };
 
     await addAsFavourite(weatherData);
   };
+
+  if (isLoading) {
+    return <Spinner text='Vänta hämtar gps position...' />;
+  }
 
   return (
     <View style={styles.screen}>
@@ -60,22 +98,24 @@ const MainScreen = () => {
         <View style={styles.weatherContainer}>
           <View style={styles.currentWeatherInfo}>
             <Text style={[styles.mainTitle, styles.textColor]}>
-              {currentCity}
+              {location?.name}
             </Text>
             <Text style={[styles.smallTitle, styles.textColor]}>
               Aktuell temperatur
             </Text>
             <Text style={[styles.mainTitle, styles.textColor]}>
-              {currentTemp}
+              {Math.ceil(location?.main.temp)}
             </Text>
-            <Text style={[styles.smallTitle, styles.textColor]}>{sky}</Text>
+            <Text style={[styles.smallTitle, styles.textColor]}>
+              {location?.weather[0].description}
+            </Text>
             <View style={styles.highAndLow}>
               <Text style={[styles.smallTitle, styles.textColor]}>
-                H: {highTemp}
+                H: {location?.main.temp_max}
               </Text>
               <Text> </Text>
               <Text style={[styles.smallTitle, styles.textColor]}>
-                L: {lowTemp}
+                L: {location?.main.temp_min}
               </Text>
             </View>
           </View>
@@ -91,12 +131,17 @@ const MainScreen = () => {
               <Text style={[styles.buttonText, styles.textColor]}>Sök</Text>
             </Pressable>
           </View>
-          {/* <Button title='Sök' onPress={onSearchHandler} /> */}
+
           <View style={styles.weatherInfoContainer}>
-            <Text style={[styles.subTitle, styles.textColor]}>
-              Temperatur - {foundCity}
+            <Text style={[styles.mainTitle, styles.textColor]}>
+              {searchedLocation?.name}
             </Text>
-            <Text style={[styles.mainTitle, styles.textColor]}>{temp}</Text>
+            <Text style={[styles.subTitle, styles.textColor]}>
+              Temperatur -{' '}
+              {searchedLocation !== null
+                ? Math.ceil(searchedLocation.main.temp)
+                : ''}
+            </Text>
           </View>
           <View style={styles.button}>
             <Pressable onPress={onSaveAsFavourite}>
