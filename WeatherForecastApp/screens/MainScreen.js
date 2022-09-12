@@ -123,6 +123,7 @@ const MainScreen = () => {
           <TextInput
             style={[styles.inputField, styles.textColor]}
             placeholder='Ange ort'
+            placeholderTextColor='#b3b2b2'
             onChangeText={(value) => setCity(value)}
             value={city}
           />
