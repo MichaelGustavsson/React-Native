@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import MainScreen from './screens/MainScreen';
 import FavouriteScreen from './screens/FavouriteScreen';
+import DetailsScreen from './screens/DetailsScreen';
 import IconButton from './components/ui/IconButton';
 
 const Stack = createNativeStackNavigator();
@@ -38,7 +39,16 @@ export default function App() {
               ),
             })}
           />
-          <Stack.Screen name='Favourites' component={FavouriteScreen} />
+          <Stack.Screen
+            name='Favourites'
+            component={FavouriteScreen}
+            options={{ title: 'Mina favorit städer' }}
+          />
+          <Stack.Screen
+            name='Details'
+            component={DetailsScreen}
+            options={{ title: '' }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

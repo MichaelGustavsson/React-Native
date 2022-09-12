@@ -83,6 +83,10 @@ const MainScreen = () => {
     };
 
     await addAsFavourite(weatherData);
+    Alert.alert(
+      'Favoriter',
+      `${searchedLocation.name} är tillagd som favorit.`
+    );
   };
 
   if (isLoading) {
@@ -128,7 +132,10 @@ const MainScreen = () => {
             value={city}
           />
           <View style={styles.button}>
-            <Pressable onPress={onSearchHandler}>
+            <Pressable
+              onPress={onSearchHandler}
+              style={({ pressed }) => pressed && styles.pressed}
+            >
               <Text style={[styles.buttonText, styles.textColor]}>Sök</Text>
             </Pressable>
           </View>
@@ -145,7 +152,10 @@ const MainScreen = () => {
             </Text>
           </View>
           <View style={styles.button}>
-            <Pressable onPress={onSaveAsFavourite}>
+            <Pressable
+              onPress={onSaveAsFavourite}
+              style={({ pressed }) => pressed && styles.pressed}
+            >
               <Text style={[styles.buttonText, styles.textColor]}>
                 Spara som favorit
               </Text>
@@ -212,6 +222,9 @@ const weatherStyles = () => {
     },
     buttonText: {
       fontSize: width < 380 ? 14 : 18,
+    },
+    pressed: {
+      opacity: 0.6,
     },
   });
 
