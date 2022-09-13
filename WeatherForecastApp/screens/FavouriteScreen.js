@@ -7,7 +7,8 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-import { listFavourites } from '../utilities/http';
+import IconButton from '../components/ui/IconButton';
+import { deleteFavourite, listFavourites } from '../utilities/http';
 
 const FavouriteScreen = ({ navigation }) => {
   const [favourites, setFavourites] = useState([]);
@@ -18,10 +19,15 @@ const FavouriteScreen = ({ navigation }) => {
 
   useEffect(() => {
     getFavourites();
-  }, []);
+  }, [getFavourites]);
 
   const onGotoDetailsHandler = (id) => {
     navigation.navigate('Details', { cityId: id });
+  };
+
+  const onDeleteFavouriteHandler = async (id) => {
+    await deleteFavourite(id);
+    await getFavourites();
   };
 
   const renderFavourite = (itemData) => {
@@ -33,6 +39,12 @@ const FavouriteScreen = ({ navigation }) => {
               {itemData.item.city}
             </Text>
           </Pressable>
+          <IconButton
+            icon={'trash-o'}
+            color='#9f1919'
+            size={24}
+            onPress={() => onDeleteFavouriteHandler(itemData.item.id)}
+          />
         </View>
       </View>
     );

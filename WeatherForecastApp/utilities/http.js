@@ -25,7 +25,7 @@ export async function getWeatherByCity(city) {
 }
 
 export async function addAsFavourite(weatherInfo) {
-  const response = await axios.post(
+  await axios.post(
     FIREBASE_URL + '/favouriteWeatherCity.json',
     JSON.stringify(weatherInfo)
   );

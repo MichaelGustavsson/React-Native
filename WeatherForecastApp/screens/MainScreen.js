@@ -17,6 +17,9 @@ import {
   getWeather,
   addAsFavourite,
   getWeatherByCity,
+  lookupFavourite,
+  listFavourites,
+  getFavourite,
 } from '../utilities/http';
 
 import Spinner from '../components/ui/Spinner';
@@ -81,6 +84,16 @@ const MainScreen = () => {
       latitude: searchedLocation.coord.lat,
       longitude: searchedLocation.coord.lon,
     };
+
+    const favourites = await listFavourites();
+    console.log(favourites);
+
+    const favourite = favourites.find((item) => item.city === city);
+
+    if (favourite) {
+      Alert.alert('Favoriter', `${city} är redan upplagd som favorit`);
+      return;
+    }
 
     await addAsFavourite(weatherData);
     Alert.alert(
