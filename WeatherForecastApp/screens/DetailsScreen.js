@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
+import Camera from '../components/Camera';
 import { getFavourite, getWeather } from '../utilities/http';
 
 const DetailsScreen = ({ route }) => {
@@ -54,6 +55,7 @@ const DetailsScreen = ({ route }) => {
           </Text>
         </View>
       </View>
+      <Camera />
     </View>
   );
 };

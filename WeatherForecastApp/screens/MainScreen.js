@@ -25,15 +25,7 @@ import {
 import Spinner from '../components/ui/Spinner';
 
 const MainScreen = () => {
-  const [temp, setTemp] = useState('');
-  const [highTemp, setHighTemp] = useState('');
-  const [lowTemp, setLowTemp] = useState('');
-  const [sky, setSky] = useState('');
   const [city, setCity] = useState('');
-  const [currentCity, setCurrentCity] = useState('STENUNGSUND');
-  const [currentTemp, setCurrentTemp] = useState('');
-  const [foundCity, setFoundCity] = useState('');
-
   const [isLoading, setIsLoading] = useState(true);
   const [location, setLocation] = useState(null);
   const [searchedLocation, setSearchedLocation] = useState(null);
@@ -174,7 +166,6 @@ const MainScreen = () => {
               </Text>
             </Pressable>
           </View>
-          {/* <Button title='Spara som favorit' onPress={onSaveAsFavourite} /> */}
         </View>
       </ImageBackground>
     </View>
