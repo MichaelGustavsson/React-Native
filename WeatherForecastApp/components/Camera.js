@@ -5,19 +5,18 @@ import {
   useCameraPermissions,
   PermissionStatus,
 } from 'expo-image-picker';
+import OutlinedButton from './ui/OutlinedButton';
 
 const Camera = () => {
   // Anropa funktionen userCameraPermission
   // Få tillbaka aktuell status via permissionInformation
   // Få även tillbaka en metod för att be om tillåtelse...
   const [permissionInformation, requestPermission] = useCameraPermissions();
+  const [image, setImage] = useState('');
 
   const verifyAccess = async () => {
     if (permissionInformation.status === PermissionStatus.UNDETERMINED) {
       const response = await requestPermission();
-
-      console.log(response);
-
       return response.granted;
     }
     if (permissionInformation.status === PermissionStatus.DENIED) {
@@ -27,7 +26,6 @@ const Camera = () => {
       );
       return false;
     }
-
     return true;
   };
 
@@ -43,12 +41,22 @@ const Camera = () => {
     });
 
     console.log(image);
+    setImage(image.uri);
   };
+
+  let imagePreview = <Text style={styles.textColor}>Bild saknas</Text>;
+
+  if (image) {
+    imagePreview = <Image style={styles.image} source={{ uri: image }} />;
+  }
 
   return (
     <View style={styles.imageContainer}>
-      <View style={styles.imagePreview}></View>
-      <Button onPress={onTakePhotoHandler} title='Ta foto' />
+      <View style={styles.imagePreview}>{imagePreview}</View>
+      {/* <Button onPress={onTakePhotoHandler} title='Ta foto' /> */}
+      <OutlinedButton icon='camera-retro' onPress={onTakePhotoHandler}>
+        Ta foto
+      </OutlinedButton>
     </View>
   );
 };
@@ -66,11 +74,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 24,
-    color: '#ffffff',
     backgroundColor: '#5b5bc9',
   },
   image: {
     width: '100%',
     height: '100%',
+  },
+  textColor: {
+    color: '#ffffff',
   },
 });
